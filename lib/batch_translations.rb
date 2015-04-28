@@ -6,13 +6,13 @@ module ActionView
         @locale_index ||= {}
 
         if @locale_index[locale].nil?
-          @index = @index ? @index + 1 : 1
-          @locale_index[locale] = @index
+          @i = @i ? @i + 1 : 1
+          @locale_index[locale] = @i
         else
-          @index = @locale_index[locale]
+          @i = @locale_index[locale]
         end
 
-        object_name = "#{@object_name}[translations_attributes][#{@index}]"
+        object_name = "#{@object_name}[translations_attributes][#{@i}]"
         object = @object.translations.select{|t| t.locale.to_s == locale.to_s}.first || @object.translations.find_by_locale(locale.to_s)
         @template.concat @template.hidden_field_tag("#{object_name}[id]", object ? object.id : "")
         @template.concat @template.hidden_field_tag("#{object_name}[locale]", locale)
